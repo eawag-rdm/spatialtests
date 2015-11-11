@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <meta name="referrer" content="always">
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+    <style>
+      #map { height: 700px;
+      width: 1000px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    
+    <script>
+    var map = L.map('map', {
+	center: [46.6, 8.5],
+	zoom: 8,
+	attributionControl: false
+    });
+    map.on('click', function(e) {
+	alert(e.latlng); // e is an event object (MouseEvent in this case)
+    });
+
+    attcontrol = L.control.attribution({position: 'bottomright'});
+    attcontrol.addAttribution('geodata &copy; <a href=http://www.swisstopo.admin.ch/>swisstopo</a> and <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>.<br />Tiles courtesy of <a href=http://www.geo.admin.ch>geo.admin.ch</a> and <a href="http://www.mapquest.com/">MapQuest</a>.')
+    map.addControl(attcontrol)
+    var swisstopo_pixelkarte = L.tileLayer('http://wmts10.geo.admin.ch/1.0.0/ch.swisstopo.pixelkarte-farbe/default/20151231/3857/{z}/{x}/{y}.jpeg', {
+	minZoom: 8,
+	bounds: [[45.80, 5.84], [47.84, 10.50]],
+    });
+
+    var MapQuestOpen_OSM = L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.{ext}', {
+	type: 'map',
+	ext: 'jpg',
+	subdomains: '1234'
+    });
+    MapQuestOpen_OSM.addTo(map)
+    swisstopo_pixelkarte.addTo(map);
+    </script>
+  </body>
+</html>
+
+    
